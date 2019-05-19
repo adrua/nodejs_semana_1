@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 const cursos = [
     {
         id: 101,
@@ -30,7 +32,7 @@ const cursos = [
 ]
 
 let cursoActual = 0;
-function mostrarCursos() {
+function mostrarCursos(interval) {
     console.log('------------------------------------------');
     console.log(`Cursos Disponible ${new Date()}`);
     console.log('------------------------------------------');
@@ -42,7 +44,7 @@ function mostrarCursos() {
             console.log('------------------------------------------');
             clearInterval(timer);
         }
-    }, 2000)
+    }, interval)
 }
 
 function mostrarPreinscritos() {
@@ -56,7 +58,24 @@ function preinscripcion(codigoCurso, estudiante) {
     const curso = cursos.find((x) => x.id === codigoCurso);
     if(curso) {
         curso.preinscritos.push(estudiante);
-    } 
+        msg = `Estudiante: (${estudiante.cedula}) ${estudiante.nombre}
+        Curso: (${curso.id}) ${curso.nombre}
+        Duracion: ${curso.duracion}
+        Valor: ${curso.valor}
+        `;
+
+        let _archivo = `preinscripcion_${estudiante.cedula}.txt`;
+        fs.writeFile(_archivo, msg, (err) => {
+            if(err) {
+                console.log(`Preinscripcion exitosa de ${estudiante.nombre}.\nNO se genero el archivo ${_archivo}`);
+            } else {
+                console.log(`Preinscripcion exitosa de ${estudiante.nombre}.\nSe genero el archivo ${_archivo}`);
+            }
+        } );
+    } else {
+        console.log(`Curso: ${codigoCurso} no existe\nSeleccione uno de los siguientes`);
+        mostrarCursos(0);
+    }
     return curso;
 }
 
