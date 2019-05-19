@@ -1,5 +1,10 @@
 # nodejs_semana_1
-### Commandos disponible
+## Commandos disponible
 
+### Listado de Cursos
+- node index 
 - node index mostrar-cursos
-- node index preincripcion -curso=### -estudiande=####
+
+### Preinscripcion
+- node index preincripcion -curso=### -cedula=######## -nombre="xxx xxxx xxx"
+- node index preincripcion -i=### -c=######## -n="xxx xxxx xxx"
